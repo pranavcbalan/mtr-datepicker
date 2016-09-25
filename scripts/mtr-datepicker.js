@@ -20,6 +20,7 @@ function MtrDatepicker(inputConfig) {
 	// The main configuration properties
 	// All of them can be overided by the ini method
 	var config = {
+		minDate:new Date(),
 		targetElement: null,
 		defaultValues: {
 			hours: 				[],
@@ -187,7 +188,10 @@ function MtrDatepicker(inputConfig) {
 		config.defaultValues.hours = createRange(config.hours);
 		config.defaultValues.minutes = createRange(config.minutes);
 		config.defaultValues.months = createRange(config.months);
-		config.defaultValues.years = createRange(config.years);
+		config.defaultValues.years = createRange(config.years);	
+        
+		// added minimum date option
+                config.minDate = input.minDate !== undefined ? input.minDate : config.minDate;
 	};
 
 	var validateInputConfig = function(input) {
@@ -895,7 +899,7 @@ function MtrDatepicker(inputConfig) {
 		if (config.future === false)
 			return true;
 
-		var dateNow = new Date(),
+		var dateNow = config.minDate,
 				datePicker = new Date(values.date.getTime());
 
 		switch(target) {
